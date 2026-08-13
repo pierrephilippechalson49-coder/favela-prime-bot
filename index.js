@@ -65,4 +65,36 @@ sock.ev.on("connection.update", ({ connection, lastDisconnect }) => {
 });
 }
 
-startBot();
+startBot();sock.ev.on("messages.upsert", async ({ messages }) => {
+    const msg = messages[0];
+
+    if (!msg.message || msg.key.fromMe) return;
+
+    const jid = msg.key.remoteJid;
+    const text =
+        msg.message.conversation ||
+        msg.message.extendedTextMessage?.text ||
+        "";
+
+    if (text.trim().toLowerCase() === ".menu") {
+        await sock.sendMessage(jid, {
+            text: `👑 *FAVELA PRIME BOT* 👑
+
+📋 *MENU*
+
+1️⃣ .menu
+2️⃣ .ping
+3️⃣ .owner
+4️⃣ .welcome
+
+🤖 Bot aktif
+👑 JAY DEMON`
+        });
+    }
+
+    if (text.trim().toLowerCase() === ".ping") {
+        await sock.sendMessage(jid, {
+            text: "🏓 Pong! Bot la aktif ✅"
+        });
+    }
+});
