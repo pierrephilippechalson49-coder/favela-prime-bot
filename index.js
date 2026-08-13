@@ -44,25 +44,25 @@ async function startBot() {
     }
   });
 
-  // 🔌 KONEKSYON BOT LA
-  sock.ev.on("connection.update", ({ connection, lastDisconnect }) => {
-    if (connection === "open") {
-      console.log("✅ FAVELA PRIME BOT KONEKTE!");
-    }
+  // 🔌 BOT CONNECTION
+sock.ev.on("connection.update", ({ connection, lastDisconnect }) => {
 
-    if (connection === "close") {
-      const reconnect =
-        lastDisconnect?.error?.output?.statusCode !==
-        DisconnectReason.loggedOut;
+  if (connection === "open") {
+    console.log("✅ FAVELA PRIME BOT CONNECTED!");
+  }
 
-      if (reconnect) {
-        console.log("🔄 Bot la ap rekonekte...");
-        startBot();
-      } else {
-        console.log("❌ Bot la dekonekte.");
-      }
+  if (connection === "close") {
+    const reconnect =
+      lastDisconnect?.error?.output?.statusCode !== DisconnectReason.loggedOut;
+
+    if (reconnect) {
+      console.log("🔄 The bot is reconnecting...");
+      startBot();
+    } else {
+      console.log("❌ The bot is off.");
     }
-  });
+  }
+});
 }
 
 startBot();
