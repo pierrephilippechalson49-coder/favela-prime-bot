@@ -1,7 +1,7 @@
 {
   "name": "favela-prime-bot",
   "version": "1.0.0",
-  "description": "WhatsApp bot using Baileys",
+  "description": "WhatsApp bot utilisant Baileys",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
